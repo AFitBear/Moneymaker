@@ -14,10 +14,8 @@ class fgf:
     def yes(self):
         print(self.fisk)
 
-
 asghd = fgf()
 asghd.yes()
-#print(asghd.__getattribute__("fisk"))
 print(asghd.fisk)
 asghd.efss=3
 print(asghd.efss)
