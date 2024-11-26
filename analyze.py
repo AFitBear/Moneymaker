@@ -27,6 +27,8 @@ def calc_cum_cost(freezertemp,pricelist,powerlist):
     for i in range(len(freezertemp)):#calcultes powercost, if the compressor was on it cost 1whr which is just 1 times the price
         if powerlist[i]:
             cumcost+=pricelist[i]
+        cumcost+=calculateFoodCost(freezertemp[i])#calculates foodcost
+        """
         if freezertemp[i]<3.5:#calculates foodcost
             cumcost+=4.39*np.e**(-0.49*freezertemp[i])
             cumfoodcost+=4.39*np.e**(-0.49*freezertemp[i])
@@ -34,17 +36,15 @@ def calc_cum_cost(freezertemp,pricelist,powerlist):
             cumcost+=0.11*np.e**(0.31*freezertemp[i])
             cumfoodcost+=0.11*np.e**(0.31*freezertemp[i])
         cumcostlist[i]=cumcost
-
+        """
     #graphFreezerTemp(cumcostlist)
     #print(f'Madkost er {cumfoodcost}')
     return cumcost
 
 def calculateFoodCost(temp):
-    cost=0
     if temp<3.5:#calculates foodcost
-        cumcost+=4.39*np.exp(-0.49*temp)
-        cumfoodcost+=4.39*np.exp(-0.49*temp)
+        foodCost=4.39*np.exp(-0.49*temp)
     elif temp>6.5:#calculates foodcost
-        cumcost+=0.11*np.exp(0.31*temp)
-        cumfoodcost+=0.11*np.exp(0.31*temp)
-    return cost
+        foodCost=0.11*np.exp(0.31*temp)
+    else: foodCost=0
+    return foodCost

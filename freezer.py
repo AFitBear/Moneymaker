@@ -5,6 +5,12 @@ from pricelist import get_price_list
 import numpy as np
 #import analyze
 
+"""
+class Freezer:
+    __builtins__
+"""
+
+
 stop_at_number=0#8500 #edit here
 def simulatesimplelist(changepoint):
     pricelist=get_price_list()
