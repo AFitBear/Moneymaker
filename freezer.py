@@ -6,10 +6,10 @@ import numpy as np
 #import analyze
 
 stop_at_number=0#8500 #edit here
-def simulatesimplelist():
+def simulatesimplelist(changepoint):
     pricelist=get_price_list()
-    powerlist=[False]*len(pricelist)
-    freezertemp=[0.0]*(len(pricelist)+1-stop_at_number)
+    powerlist=np.array([False]*len(pricelist))
+    freezertemp=np.array([0.0]*(len(pricelist)+1-stop_at_number))
     freezertemp[0]=5.0
     roomtemp=20.0
     komptemp=-5
@@ -20,9 +20,9 @@ def simulatesimplelist():
     for i in range(len(freezertemp)-1):#logic for if the door opens
         if random.randint(1,10)==1:
             c1=3*10**-5
-        else:
+        else:                             #make new funktion that checks the food cost/price.
             c1=5*10**-7
-        if freezertemp[i]>5:#logic to se if the tempereture is over 5, if it is, then it cools down.
+        if freezertemp[i]>changepoint:#logic to se if the tempereture is over 5, if it is, then it cools down.
             c2=8*10**-6
             powerlist[i]=True
         else:
@@ -30,14 +30,14 @@ def simulatesimplelist():
         
         freezertemp[i+1]=freezertemp[i]+(c1*(roomtemp-(freezertemp[i]))+c2*(komptemp-(freezertemp[i])))*deltat
     
-    freezertemp.pop()
+    #freezertemp.pop()
     #analyze.graphFreezerTemp(freezertemp) #makes a graph of the temperature
     cumcost=analyze.calc_cum_cost(freezertemp,pricelist,powerlist)
-    if cumcost<12000:
-        print("!!!!!!!!!!!!!!!!!!!!GG!!!!!!!!!!!!!!!!!!")
     print(cumcost)
-    #print(cumcost)
     return True
+
+
+
 
 
 def simulateAIlist(t_point):
@@ -67,8 +67,6 @@ def simulateAIlist(t_point):
     freezertemp.pop()
     #analyze.graphFreezerTemp(freezertemp) #makes a graph of the temperature
     cumcost=analyze.calc_cum_cost(freezertemp,pricelist,powerlist)
-    if cumcost<12000:
-        print("!!!!!!!!!!!!!!!!!!!!GG!!!!!!!!!!!!!!!!!!")
     print(cumcost)
     return cumcost
 

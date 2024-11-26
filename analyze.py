@@ -20,9 +20,10 @@ def graphFreezerTemp(theList, start=1,step=1):#plot list nameIdea:"plotList"
     return True
 
 def calc_cum_cost(freezertemp,pricelist,powerlist):
+    freezertemp=np.delete(freezertemp,-1)
     cumcost=0
     cumfoodcost=0
-    cumcostlist=[0]*len(freezertemp)
+    cumcostlist=np.array([0]*len(freezertemp))
     for i in range(len(freezertemp)):#calcultes powercost, if the compressor was on it cost 1whr which is just 1 times the price
         if powerlist[i]:
             cumcost+=pricelist[i]
@@ -35,5 +36,6 @@ def calc_cum_cost(freezertemp,pricelist,powerlist):
         cumcostlist[i]=cumcost
 
     #graphFreezerTemp(cumcostlist)
-    print(f'Madkost er {cumfoodcost}')
+    #print(f'Madkost er {cumfoodcost}')
+    print(f'funktion er {np.sum(cumcostlist)}')
     return cumcost
