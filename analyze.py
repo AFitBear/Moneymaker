@@ -12,11 +12,11 @@ def graphFreezerTemp(theList, start=1,step=1):#plot list nameIdea:"plotList"
     x = np.arange(start,6.3+0*(start+len(theList)),step)
     #plt.plot(x, len(theList])
     plt.plot(x,theList)
-    plt.xlabel('Udgifter [kr.]') #5min intervalantal
-    plt.ylabel('Skifte-Temperatur [C]') #Temperatur [C]
+    plt.xlabel('Skifte-Temperatur [C]') #5min intervalantal
+    plt.ylabel('Udgifter [kr.]') #Temperatur [C]
     plt.grid()
     plt.show()
-    #plt.savefig()
+    plt.savefig('graphOfFreezer.PNG')
     return True
 
 def calc_cum_cost(freezertemp,pricelist,powerlist):
@@ -37,5 +37,14 @@ def calc_cum_cost(freezertemp,pricelist,powerlist):
 
     #graphFreezerTemp(cumcostlist)
     #print(f'Madkost er {cumfoodcost}')
-    print(f'funktion er {np.sum(cumcostlist)}')
     return cumcost
+
+def calculateFoodCost(temp):
+    cost=0
+    if temp<3.5:#calculates foodcost
+        cumcost+=4.39*np.exp(-0.49*temp)
+        cumfoodcost+=4.39*np.exp(-0.49*temp)
+    elif temp>6.5:#calculates foodcost
+        cumcost+=0.11*np.exp(0.31*temp)
+        cumfoodcost+=0.11*np.exp(0.31*temp)
+    return cost
