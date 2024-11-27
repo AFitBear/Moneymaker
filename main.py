@@ -7,7 +7,7 @@ import freezer
 changepoint=6.22
 #freezer.simulatesimplelist(changepoint)
 
-freezer.pricePerTemp(4)#000)
+freezer.pricePerTemp(400)
 
 
 #for i in range(200):
