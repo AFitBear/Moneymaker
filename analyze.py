@@ -42,6 +42,9 @@ def calc_cum_cost(freezertemp,pricelist,powerlist):
     return cumcost
 
 def calculateFoodCost(temp):
+    """
+    Calculates the food cost according to the temperature given
+    """
     if temp<3.5:#calculates foodcost
         foodCost=4.39*np.exp(-0.49*temp)
     elif temp>6.5:#calculates foodcost
