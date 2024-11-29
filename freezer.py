@@ -10,12 +10,10 @@ class Freezer:
     __builtins__
 """
 
-
-stop_at_number=0#8500 #edit here
 def simulatesimplelist(changepoint):
     pricelist=get_price_list()
     powerlist=np.array([False]*len(pricelist))
-    freezertemp=np.array([0.0]*(len(pricelist)+1-stop_at_number))
+    freezertemp=np.array([0.0]*(len(pricelist)+1))
     freezertemp[0]=5.0
     roomtemp=20.0
     komptemp=-5
@@ -33,19 +31,17 @@ def simulatesimplelist(changepoint):
             powerlist[i]=True
         else:
             c2=0
-        
-        freezertemp[i+1]=freezertemp[i]+(c1*(roomtemp-(freezertemp[i]))+c2*(komptemp-(freezertemp[i])))*deltat
+        freezertemp[i+1]=calcTemp(freezertemp[i],c1,c2,komptemp,roomtemp,deltat)
     
     #freezertemp.pop()
     #analyze.graphFreezerTemp(freezertemp) #makes a graph of the temperature
     cumcost=analyze.calc_cum_cost(freezertemp,pricelist,powerlist)
-    print(cumcost)
-    return True
+    return cumcost
 
 
 
 
-
+"""
 def simulateAIlist(t_point):
     pricelist=get_price_list()
     powerlist=[False]*len(pricelist)
@@ -73,26 +69,91 @@ def simulateAIlist(t_point):
     freezertemp.pop()
     #analyze.graphFreezerTemp(freezertemp) #makes a graph of the temperature
     cumcost=analyze.calc_cum_cost(freezertemp,pricelist,powerlist)
-    print(cumcost)
+    #print(cumcost) DEBUG
     return cumcost
+"""
+    
+def calcTemp(lastTemp,c1,c2,tempKomp,tempRoom,deltaT):
+    newTemp=lastTemp+(c1*(tempRoom-(lastTemp))+c2*(tempKomp-(lastTemp)))*deltaT
+    return newTemp
 
-def simulateAverage(cylces,t_point):
+def simulateAverage(funktion,cylces,changePoint):
     cumsum=0
     for i in range(cylces):
-        cumsum+=simulateAIlist(t_point)
-        print(f"procent af cycle: {(i/cylces)*100}")
+        cumsum+=funktion(changePoint)
     avg=cumsum/cylces
     return avg
 
 def pricePerTemp(cycles):
-    points=np.arange(6.1,6.3,0.01)
+    points=np.arange(6.2,6.3,0.01)
     costlist=[0]*len(points)
     i=0
     for temp in points:
-        costlist[i]=simulateAverage(cycles,temp)
+        costlist[i]=simulateAverage(simulatesimplelist,cycles,temp)
         i+=1
-    analyze.graphFreezerTemp(costlist,6.1,0.01)
+        print(f"procent af cycle: {(i/len(points))*100}")
+    analyze.graphFreezerTemp(costlist,6.2,0.01)
 
+def generateRandomBoolArray():
+    powerlist=np.zeros(len(get_price_list()))
+    for i in range(len(powerlist)):
+        if np.random.randint(1,3)==2:
+            powerlist[i]=True
+        else: powerlist[i]=False
+    return powerlist
+
+def simulateAI(AIs,times):
+    lowestlist=0
+    lowestCost=99999999
+    for i in range(AIs):
+        powerlist=generateRandomBoolArray()
+        cost_list=simKompressor(powerlist,times)
+        if cost_list[0]<lowestCost:
+            lowestCost=cost_list[0]
+            lowestList=cost_list[1]
+    print(lowestList)
+    return lowestCost
+
+def simKompressor(powerlist,cycles):
+    for i in range(cycles):
+        pricelist=get_price_list()
+        freezertemp=np.array([0.0]*(len(pricelist)+1))
+        freezertemp[0]=5.0
+        roomtemp=20.0
+        komptemp=-5
+        deltat=300
+        c1=3*10**-5
+        c2=8*10**-6
+        for i in range(len(freezertemp)-1):#logic for if the door opens
+            if random.randint(1,10)==1:
+                c1=3*10**-5
+            else:                             #make new funktion that checks the food cost/price.
+                c1=5*10**-7
+            if pricelist[i]==1:
+                c2=8*10**-6
+            else: c2=0
+        freezertemp[i+1]=calcTemp(freezertemp[i],c1,c2,komptemp,roomtemp,deltat)
+        
+        #freezertemp.pop()
+        #analyze.graphFreezerTemp(freezertemp) #makes a graph of the temperature
+        cumcost=analyze.calc_cum_cost(freezertemp,pricelist,powerlist)# Returns the cost for the month
+    return cumcost, powerlist
+
+def genAI():
+    """
+    Jeg skal begynde at bruge threading.
+    Der skal gemmes den bedste list ud fra hver stage ud fra den mindste cost.
+    """
+    winnercount=10
+    threads=10 #winnercount is equal to threads. because each winner has their own thread.
+    randomnes=1 #procent of the list
+    samples=100 #amount of simulations of the AI.
+    learningCycle=10 #number of times the AI grows.
+    aviations=50 #forskellige versioner af den originale liste.
+
+
+
+    return True
 
 '''
 class farm:

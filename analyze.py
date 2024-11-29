@@ -28,17 +28,9 @@ def calc_cum_cost(freezertemp,pricelist,powerlist):
         if powerlist[i]:
             cumcost+=pricelist[i]
         cumcost+=calculateFoodCost(freezertemp[i])#calculates foodcost
-        """
-        if freezertemp[i]<3.5:#calculates foodcost
-            cumcost+=4.39*np.e**(-0.49*freezertemp[i])
-            cumfoodcost+=4.39*np.e**(-0.49*freezertemp[i])
-        elif freezertemp[i]>6.5:#calculates foodcost
-            cumcost+=0.11*np.e**(0.31*freezertemp[i])
-            cumfoodcost+=0.11*np.e**(0.31*freezertemp[i])
-        cumcostlist[i]=cumcost
-        """
+
     #graphFreezerTemp(cumcostlist)
-    #print(f'Madkost er {cumfoodcost}')
+    #print(f'Madkost er {cumfoodcost}') DEBUG
     return cumcost
 
 def calculateFoodCost(temp):
@@ -49,5 +41,5 @@ def calculateFoodCost(temp):
         foodCost=4.39*np.exp(-0.49*temp)
     elif temp>6.5:#calculates foodcost
         foodCost=0.11*np.exp(0.31*temp)
-    else: foodCost=0
+    else: return 0
     return foodCost
