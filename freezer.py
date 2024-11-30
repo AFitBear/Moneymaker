@@ -84,15 +84,15 @@ def simulateAverage(funktion,cylces,changePoint):
     avg=cumsum/cylces
     return avg
 
-def pricePerTemp(cycles):
-    points=np.arange(6.2,6.3,0.01)
+def pricePerTemp(cycles,startPoint,endPoint,step):
+    points=np.arange(startPoint,endPoint,step)
     costlist=[0]*len(points)
     i=0
     for temp in points:
         costlist[i]=simulateAverage(simulatesimplelist,cycles,temp)
         i+=1
         print(f"procent af cycle: {(i/len(points))*100}")
-    analyze.graphFreezerTemp(costlist,6.2,0.01)
+    analyze.graphFreezerTemp(costlist,endPoint,start=startPoint,step=step)
 
 def generateRandomBoolArray():
     powerlist=np.zeros(len(get_price_list()))

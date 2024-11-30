@@ -6,10 +6,10 @@ def gg():
     return True
 
 
-def graphFreezerTemp(theList, start=1,step=1):#plot list nameIdea:"plotList"
+def graphFreezerTemp(theList,endPoint, start=1,step=1):#plot list nameIdea:"plotList"
     #if start==1 and step==1:
     #    x =x = np.arange(start,len(theList)+1,step)
-    x = np.arange(start,6.3+0*(start+len(theList)),step)
+    x = np.arange(start,endPoint+6.27*0*(start+len(theList)),step)
     #plt.plot(x, len(theList])
     plt.plot(x,theList)
     plt.xlabel('Skifte-Temperatur [C]') #5min intervalantal

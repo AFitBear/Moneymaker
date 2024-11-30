@@ -5,17 +5,21 @@ import pricelist
 import freezer
 import time
 #freezer.simulate()
-changepoint=6.24
-#print(freezer.simulatesimplelist(changepoint))
-print(freezer.simulateAI(6000,1))
+changePoint=6.24
+#print(freezer.simulatesimplelist(changePoint))
+#print(freezer.simulateAI(600,1))
+
+#print(freezer.simulateAverage(freezer.simulatesimplelist,1000,changePoint))
 
 """
 nowe=time.time()
-print(freezer.simulateAverage(freezer.simulatesimplelist,1000,changepoint))
+print(freezer.simulateAverage(freezer.simulatesimplelist,1000,changePoint))
 print(time.time()-nowe)
 """
-
-#freezer.pricePerTemp(80)
+startPoint=6.247
+endPoint=6.253
+step=0.002
+freezer.pricePerTemp(30000,startPoint,endPoint,step)
 
 
 #for i in range(200):
