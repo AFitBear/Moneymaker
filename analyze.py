@@ -4,7 +4,7 @@ Module where math happens. math and graphs.
 import matplotlib.pyplot as plt
 import numpy as np
 
-def graphFreezerTemp(theList,endPoint,labelX=0,labelY=0, start=1,step=1):
+def graphlist(theList,endPoint,labelX=0,labelY=0, start=1,step=1):
     """
     takes a list and graphs it with given endpoint.
     """
@@ -20,7 +20,7 @@ def graphFreezerTemp(theList,endPoint,labelX=0,labelY=0, start=1,step=1):
 def calc_cum_cost(freezertemp,pricelist,powerlist):
     """
     Calculates and returns the cumulative cost of a month, by adding electricity-cost and foodcost.
-    >>> calcTemp(analyze.calc_cum_cost([6,5,4],[1,2,3],[True,False,True]))
+    >>> calc_cum_cost(analyze.calc_cum_cost([6,5,4],[1,2,3],[True,False,True]))
     4
     """
     cumcost=0
@@ -33,7 +33,7 @@ def calc_cum_cost(freezertemp,pricelist,powerlist):
 def calculateFoodCost(temp):
     """
     Calculates the food cost according to the temperature given.
-    >>> calcTemp(8)
+    >>> calculateFoodCost(8)
     1.3135390859634013
     """
     if temp<3.5:#calculates foodcost
@@ -50,7 +50,6 @@ def calcTemp(lastTemp,c1,c2,tempKomp,tempRoom,deltaT):
     5.9757
     """
     return (lastTemp+(c1*(tempRoom-(lastTemp))+c2*(tempKomp-(lastTemp)))*deltaT)
-
 
 if __name__== '__main__':
     import doctest

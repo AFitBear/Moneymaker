@@ -1,35 +1,22 @@
 """
 Main, where it all begins.
 """
-import pricelist
 import freezer
-import time
 import analyze
 
-"""
-nowe=time.time()
-print(freezer.simulateAverage(freezer.simulatesimplelist,1000,changePoint))
-print(time.time()-nowe)
-"""
+print("enter ('1') to simulate the cost of 1 month with simple thermostat")
+print("enter ('2') to simulate the average cost of different changepoints, where this returns a graph")
+print("enter ('3') to simulate average cost of a specific changepoint over a given amount cycles")
+input1=input()
+if input1=='1':
+    input1=float(input("enter 'changepoint' example: '6.25' Enter:"))
+    print(f"cost of one month with {input1}C as changepoint: {freezer.simulatesimplelist(input1)}kr.-")
+    
+elif input1=='2':
+    input1=(input("input 'cycles, startpoint, endpoint, step' example: '10,6.2,6.4,0.01' Enter:")).split(',')
+    costlist=freezer.pricePerTemp(int(input1[0]),float(input1[1]),float(input1[2]),float(input1[3]))
+    analyze.graphlist(costlist,float(input1[2]),'Skifte-Temperatur [C]','Udgifter [kr.]',start=float(input1[1]),step=float(input1[3]))
 
-
-
-changePoint=6.235
-changePoint=5
-print(freezer.simulateAverage(freezer.simulatesimplelist,10000,changePoint))
-
-costlist=freezer.simulateAverage(freezer.simulatesimplelist,10,changePoint)
-print(costlist)
-
-startPoint=6.1
-endPoint=6.4#it does not calculate the endpoint
-step=0.01
-costlist=freezer.pricePerTemp(10,startPoint,endPoint,step)
-analyze.graphlist(costlist,endPoint,'Skifte-Temperatur [C]','Udgifter [kr.]',start=startPoint,step=step)
-
-
-
-#mindst 1 class, mindst 3 doctest, og doctekst til hver funktioner og moduler.
-#mindst 2 moduler. budgettet er 12000
-#TIL RAPPORT, testning af kølningstemperatur i forhold til "madkost vs elcost". Ved 5.9C er der 0 madkost og 6.2 er billiger end 5C.
-#with physics it is best at 6.235[C] where it changes temperature.
+elif input1=='3':
+    input1=input("input 'cycles, changePoint' example: '100,6.25' Enter:").split(',')
+    print(f"cost of an average month with {input1[1]}C as changepoint with {input1[0]} cycles: {freezer.simulateAverage(freezer.simulatesimplelist,int(input1[0]),float(input1[1]))}kr.-")
