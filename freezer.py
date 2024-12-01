@@ -62,13 +62,6 @@ def pricePerTemp(cycles,startPoint,endPoint,step):
 
 
 
-if __name__== '__main__':
-    import doctest
-    print(doctest.testmod)
-
-
-
-
 
 """
 def pricePerTempTEST(cycles, startPoint, endPoint, step):
