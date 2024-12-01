@@ -20,7 +20,7 @@ def graphlist(theList,endPoint,labelX=0,labelY=0, start=1,step=1):
 def calc_cum_cost(freezertemp,pricelist,powerlist):
     """
     Calculates and returns the cumulative cost of a month, by adding electricity-cost and foodcost.
-    >>> calc_cum_cost(analyze.calc_cum_cost([6,5,4],[1,2,3],[True,False,True]))
+    >>> calc_cum_cost([6,5,4],[1,2,3],[True,False,True])
     4
     """
     cumcost=0
@@ -34,7 +34,7 @@ def calculateFoodCost(temp):
     """
     Calculates the food cost according to the temperature given.
     >>> calculateFoodCost(8)
-    1.3135390859634013
+    np.float64(1.3135390859634013)
     """
     if temp<3.5:#calculates foodcost
         foodCost=4.39*np.exp(-0.49*temp)
@@ -53,4 +53,4 @@ def calcTemp(lastTemp,c1,c2,tempKomp,tempRoom,deltaT):
 
 if __name__== '__main__':
     import doctest
-    print(doctest.testmod)
+    print(doctest.testmod())
